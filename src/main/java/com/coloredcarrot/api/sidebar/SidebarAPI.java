@@ -24,7 +24,6 @@
 
 package com.coloredcarrot.api.sidebar;
 
-import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -43,7 +42,6 @@ public class SidebarAPI extends JavaPlugin {
 
 	private static SidebarAPI instance;
 	private static String version;
-	private static PlaceholderAPIPlugin placeholderAPI;
 	private static final List<Sidebars> sidebars = new ArrayList<>();
 
 	@Override
@@ -51,21 +49,6 @@ public class SidebarAPI extends JavaPlugin {
 
 		instance = this;
 		version = getDescription().getVersion();
-
-		if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-
-			try {
-				placeholderAPI = (PlaceholderAPIPlugin) getServer().getPluginManager().getPlugin("PlaceholderAPI");
-			} catch (ClassCastException | NullPointerException ignored) {
-			}
-
-			if (placeholderAPI != null) {
-				getLogger().info("Hooked PlaceholderAPI v" + placeholderAPI.getDescription().getVersion());
-				new SidebarPlaceholders().hook();
-			}
-
-		} else
-			placeholderAPI = null;
 
 		Config.load();
 
@@ -104,17 +87,6 @@ public class SidebarAPI extends JavaPlugin {
 
 	protected static void unregisterSidebar(Sidebars sidebar) {
 		sidebars.remove(sidebar);
-	}
-
-	/**
-	 * Gets the PlaceholderAPIPlugin instance.
-	 *
-	 * @return (PlaceholderAPIPlugin) - the instance of null if the plugin isn't
-	 *         hooked.
-	 * @since 2.4
-	 */
-	public static PlaceholderAPIPlugin getPlaceholderAPI() {
-		return placeholderAPI;
 	}
 
 	/**

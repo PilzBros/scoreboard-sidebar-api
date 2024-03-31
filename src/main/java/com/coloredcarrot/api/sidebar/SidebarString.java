@@ -24,7 +24,6 @@
 
 package com.coloredcarrot.api.sidebar;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
@@ -287,11 +286,6 @@ public class SidebarString implements ConfigurationSerializable {
 	 */
 	public SidebarString setPlaceholders(Player forPlayer) throws SidebarOptionalException {
 
-		if (SidebarAPI.getPlaceholderAPI() == null)
-			throw new SidebarOptionalException("PlaceholderAPI not hooked!");
-
-		for (int i = 0; i < animated.size(); i++)
-			animated.set(i, PlaceholderAPI.setPlaceholders(forPlayer, animated.get(i)));
 
 		return this;
 
@@ -446,18 +440,7 @@ public class SidebarString implements ConfigurationSerializable {
 	 */
 	public SidebarString addVariation(Player setPlaceholdersForPlayer, String... variations) {
 
-		if (setPlaceholdersForPlayer != null && SidebarAPI.getPlaceholderAPI() == null)
-			throw new SidebarOptionalException("PlaceholderAPI not hooked!");
 
-		if (variations != null && variations.length > 0) {
-
-			if (setPlaceholdersForPlayer != null)
-				for (int i = 0; i < variations.length; i++)
-					variations[i] = PlaceholderAPI.setPlaceholders(setPlaceholdersForPlayer, variations[i]);
-
-			animated.addAll(Arrays.asList(variations));
-
-		}
 
 		return this;
 
